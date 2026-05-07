@@ -6,12 +6,15 @@
 
 @; ----------------------------------------------------------------------
 
-@(require scribble/eval)
+@(require scribble-math
+          scribble/eval)
 
 @(define ss-eval (make-base-eval))
 
 @(define-syntax-rule (ss-interaction e ...)
    (interaction #:eval ss-eval e ...))
+
+@(use-mathjax)
 
 @; ----------------------------------------------------------------------
 
@@ -137,6 +140,40 @@ wow
 (T . T)
 }
 
+总览：
+
+@$$|{
+  \underbrace{
+    \texttt{67} \quad
+    \texttt{#t} \quad
+    \texttt{3.14} \quad
+    \texttt{abc} \quad
+    \texttt{()}
+  }_{\text{atom}}
+  \quad
+  \underbrace{
+    \texttt{(1 2 3)} \quad
+    \texttt{(a . b)} \quad
+     \texttt{(1 . (2 . 3))}
+  }_{\text{pair}}
+}|
+
+同时：
+
+@$$|{
+  \texttt{67} \quad
+  \texttt{#t} \quad
+  \texttt{3.14} \quad
+  \texttt{abc}
+  \quad
+  \underbrace{
+    \texttt{()} \quad
+    \texttt{(1 2 3)}
+  }_{\text{list}}
+  \quad
+  \texttt{(1 . 2)} \quad
+  \texttt{(1 . (2 . 3))}
+}|
 
 @section{代码的规则}
 
