@@ -128,6 +128,19 @@ the-word-recursion-has-many-meanings
 (1 (2 3) (4 5 6) 7 (8) 9)
 }
 
+@subsection{不适当表}
+
+我们有不适当表（improper list）。
+
+刚刚我们知道，有些序对是表，有些不是。后者就叫不适当表。不适当表其实也有简写： @tt{(1 . (2 . (3 . 4)))} 会简写成 @racket[(1 2 3 . 4)] 。
+
+TODO：简写的原因，由“.”与“()”的对消导出
+
+@verbatim{
+(1 . 2)
+(a b . c)
+}
+
 @subsection{总结}
 
 正如这一节开头所说，原子和序对统称为数据。（别忘了，刚才的表要么是序对，要么是空表，而空表是一个原子。所以表也都是数据。）
@@ -143,37 +156,43 @@ wow
 总览：
 
 @$$|{
+  \phantom{\texttt{67}}        \quad
+  \phantom{\texttt{#t}}        \quad
+  \phantom{\texttt{3.14}}      \quad
+  \phantom{\texttt{abc}}       \quad
+  \overbrace{
+    \phantom{\texttt{()}}      \quad
+    \phantom{\texttt{(1 2 3)}}
+  }^{\text{list}}              \quad
+  \overbrace{
+    \phantom{\texttt{(a . b)}} \quad
+    \phantom{\texttt{(1 2 . 3)}}
+  }^{\text{improper list}}
+  \\
+  \texttt{67}      \quad
+  \texttt{#t}      \quad
+  \texttt{3.14}    \quad
+  \texttt{abc}     \quad
+  \texttt{()}      \quad
+  \texttt{(1 2 3)} \quad
+  \texttt{(a . b)} \quad
+  \texttt{(1 2 . 3)}
+  \\
   \underbrace{
-    \texttt{67} \quad
-    \texttt{#t} \quad
-    \texttt{3.14} \quad
-    \texttt{abc} \quad
-    \texttt{()}
-  }_{\text{atom}}
-  \quad
+    \phantom{\texttt{67}}      \quad
+    \phantom{\texttt{#t}}      \quad
+    \phantom{\texttt{3.14}}    \quad
+    \phantom{\texttt{abc}}     \quad
+    \phantom{\texttt{()}}
+  }_{\text{atom}}              \quad
   \underbrace{
-    \texttt{(1 2 3)} \quad
-    \texttt{(a . b)} \quad
-     \texttt{(1 . (2 . 3))}
+    \phantom{\texttt{(1 2 3)}} \quad
+    \phantom{\texttt{(a . b)}} \quad
+    \phantom{\texttt{(1 2 . 3)}}
   }_{\text{pair}}
 }|
 
-同时：
-
-@$$|{
-  \texttt{67} \quad
-  \texttt{#t} \quad
-  \texttt{3.14} \quad
-  \texttt{abc}
-  \quad
-  \underbrace{
-    \texttt{()} \quad
-    \texttt{(1 2 3)}
-  }_{\text{list}}
-  \quad
-  \texttt{(1 . 2)} \quad
-  \texttt{(1 . (2 . 3))}
-}|
+别忘了， @racket[(1 2 3)] 其实是 @tt{(1 . (2 . (3 . ())))} 的简写， @racket[(1 2 . 3)] 其实是 @tt{(1 . (2 . 3))} 的简写。
 
 @section{代码的规则}
 
