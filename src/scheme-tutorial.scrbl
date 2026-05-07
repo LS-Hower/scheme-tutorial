@@ -17,6 +17,8 @@
 
 @hyperlink["../index.html"]{返回博客主页面}
 
+@hyperlink["https://github.com/LS-Hower/scheme-tutorial"]{本项目 GitHub 仓库}
+
 @; ----------------------------------------------------------------------
 
 @section{背景}
