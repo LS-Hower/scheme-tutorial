@@ -87,6 +87,21 @@ the-word-recursion-has-many-meanings
 (1 . (2 . (3 . 4)))
 }
 
+我们定义两个操作，分别叫 @${\mathrm{1st}} 和 @${\mathrm{2nd}} ，分别取出序对的第一个和第二个元素。
+
+例：
+
+@$${
+  \begin{align*}
+    \mathrm{1st} \texttt{(1 . 2)} & \rightarrow \texttt{1} \\
+    \mathrm{2nd} \texttt{(1 . 2)} & \rightarrow \texttt{2} \\
+    \mathrm{1st} \texttt{(1 . (2 . 3))} & \rightarrow \texttt{1} \\
+    \mathrm{2nd} \texttt{(1 . (2 . 3))} & \rightarrow \texttt{(2 . 3)}
+  \end{align*}
+}
+
+之后要用到。
+
 只用序对就能表达一切数据结构了，比如列表。见下。
 
 @subsection{表}
@@ -107,7 +122,7 @@ the-word-recursion-has-many-meanings
 
 表很常见，所以我们有简写，例如 @bold{上面的表简写成 @racket[(1 2 3 4)]} 。
 
-可以发现，我们对列表 @racket[(1 2 3 4)] （别忘了它其实是 @tt{(1 . (2 . (3 . (4 . nil))))} ）分别做“取出序对的第一个元素”和“取出序对的第二个元素”操作，会分别得到原子 @racket[1] 和表 @racket[(2 3 4)] （因为它是 @tt{(2 . (3 . (4 . nil)))} ）。以此类推，对只有一个元素的列表 @racket[(4)] 这么做，会分别得到原子 @racket[4] 和表 @racket[()] 。后者是一个有 0 个元素的表，叫“空表”。但如果我们看一下 @racket[(4)] 真正的结构 @tt{(4 . nil)} ，我们就会发现，这个所谓的“空表” @racket[()] 其实刚好就是 @racket[nil] 。我们不再用 @racket[nil] 这种不明不白的东西了，我们改用 @racket[()] 来表示它。例如 @racket[(hello scheme language)] 将会是 @tt{(hello . (scheme . (language . ())))} 。
+可以发现，我们对列表 @racket[(1 2 3 4)] （别忘了它其实是 @tt{(1 . (2 . (3 . (4 . nil))))} ）分别做 @${\mathrm{1st}} 和 @${\mathrm{2nd}} 操作，会分别得到原子 @racket[1] 和表 @racket[(2 3 4)] （因为它是 @tt{(2 . (3 . (4 . nil)))} ）。以此类推，对只有一个元素的列表 @racket[(4)] 这么做，会分别得到原子 @racket[4] 和表 @racket[()] 。后者是一个有 0 个元素的表，叫“空表”。但如果我们看一下 @racket[(4)] 真正的结构 @tt{(4 . nil)} ，我们就会发现，这个所谓的“空表” @racket[()] 其实刚好就是 @racket[nil] 。我们不再用 @racket[nil] 这种不明不白的东西了，我们改用 @racket[()] 来表示它。例如 @racket[(hello scheme language)] 将会是 @tt{(hello . (scheme . (language . ())))} 。
 
 所以表要么是序对，要么是空表 @racket[()] 。后者并不是一个序对，而是视为一个原子。
 
@@ -136,7 +151,7 @@ the-word-recursion-has-many-meanings
 
 注意：“表”（list）和“不适当表”（improper list）是毫无交集的。一个序对，要么是表，要么是不适当表，它是且仅是其中一个。
 
-严格地说，对于一个序对，我们不断地对其进行“取出第二个值”操作，直至它不是序对。若最终得到的是空表 @racket[()] ，则它是表，否则它是不适当表。还是以 @tt{(1 . (2 . (3 . 4)))} 为例，不断进行“取出第二个值”操作，一步步地，会产生如下结果：
+严格地说，对于一个序对，我们不断地对其进行 @${\mathrm{2nd}} 操作，直至它不是序对。若最终得到的是空表 @racket[()] ，则它是表，否则它是不适当表。还是以 @tt{(1 . (2 . (3 . 4)))} 为例，不断进行 @${\mathrm{2nd}} 操作，一步步地，会产生如下结果：
 
 @verbatim{
 (1 . (2 . (3 . 4)))
@@ -482,8 +497,8 @@ Scheme 内置了许多有用的过程，它们当然都有自己的名字。比�
 以上都是对数值做的操作。Scheme 的内置函数库当然不止这些。我们再举一些对表的操作的例子：
 
 @itemlist[@item{@racket[null?] 过程接收 1 个参数，判断它是不是空表；}
-          @item{@racket[car] 过程接收 1 个参数（它应当是序对），给出这个序对的第一个元素；}
-          @item{@racket[cdr] 过程接收 1 个参数（它应当是序对），给出这个序对的第二个元素；}]
+          @item{@racket[car] 过程接收 1 个参数（它应当是序对），给出这个序对的第一个元素（其实就是 @${\mathrm{1st}} 操作）；}
+          @item{@racket[cdr] 过程接收 1 个参数（它应当是序对），给出这个序对的第二个元素（其实就是 @${\mathrm{2nd}} 操作）；}]
 
 TODO: car 和 cdr 名字由来
 
