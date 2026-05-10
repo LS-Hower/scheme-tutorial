@@ -293,7 +293,7 @@ Scheme 是基于表达式的语言，我们可以将一段代码视为指令，�
 
 @ss-interaction[2.5 67 10/6]
 
-@subsection{只是一个符号}
+@subsection[#:tag "evaluate a symbol"]{只是一个符号}
 
 如果得到的数据只是一个符号，那么解释器就把它当成变量的名字，然后去寻找这个名字的变量，将它的值作为求值结果。
 
@@ -338,3 +338,32 @@ Scheme 是基于表达式的语言，我们可以将一段代码视为指令，�
 ]
 
 在最后一个例子里，外层的 @tt{if} 中的 @italic{<a>} 是 @racket[(if #t 67 42)] ， @italic{<b>} 是 @racket[67] ， @italic{<a>} 是 @racket[42] 。先对 @italic{<a>} 求值，得到的是 @racket[67] ；它是真值，所以对 @italic{<b>} 求值，得到的刚好又是 @racket[67] 。
+
+@subsection{是一个表，而且首项是 @tt{define}}
+
+如果得到的数据是一个表，而且首项是 @tt{define} ，那么有一个要求：这个表应该有 3 个项。也就是说，它形如 @tt{(define }@italic{<a> <b>}@tt{)} 。此外还有一个要求： @italic{<a>} 必须是符号。
+
+我们要这样求值：创建一个变量，将 @italic{<a>} 这个符号当作它的名字。对 @italic{<b>} 求值，让这个变量持有这个值。而至于这个 @tt{(define }@italic{<a> <b>}@tt{)} 本身的返回值，它是不确定的。
+
+这个表达式本身所返回的值，我们是不关注的，一般也不会去使用。我们只关注这个表达式执行之后产生的效果（即，创建了一个变量，并将一个值和它绑定）。
+
+@ss-interaction[
+(define r 10)
+(define k (if #t 1 -1))
+]
+
+可以看到，解释器在接收了我们的 @tt{(define }@italic{<a> <b>}@tt{)} 之后甚至没有打印任何东西。因为就像刚才说的，这个表本身的返回值我们并不关注。
+
+接下来，我们只打出符号 @racket[r] 或者 @racket[k] 时，它们就能按照“ @secref["evaluate a symbol"] ”一节中所说的那样被求值了。
+
+@ss-interaction[r k]
+
+当然也可以用在任何需要一个表达式的地方：
+
+@ss-interaction[
+(if #t r k)
+(if r r k)
+(define r-copy r)
+r-copy
+]
+
