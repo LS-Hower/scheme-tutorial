@@ -2,7 +2,7 @@
 
 数据导向的 Scheme 编程语言教程。
 
-**在线阅读： [`https://ls-hower.github.io/scheme-tutorial/`](https://ls-hower.github.io/scheme-tutorial/)**
+**在线阅读： [`https://ls-hower.cc/scheme-tutorial/`](https://ls-hower.cc/scheme-tutorial/)**
 
 ## 构建
 
